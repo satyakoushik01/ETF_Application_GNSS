@@ -14,10 +14,10 @@ export default function Sparkline({ data = [], positive = true, className = '' }
     .join(' ')
 
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} className={`h-7 w-[88px] ${className}`} aria-hidden>
+    <svg viewBox={`0  0 ${w} ${h}`} className={`h-7 w-[88px] ${className}`} aria-hidden>
       <polyline
         fill="none"
-        stroke={positive ? '#00d09c' : '#ff5a6a'}
+        stroke={positive ? '#16a34a' : '#dc2626'}
         strokeWidth="1.75"
         strokeLinejoin="round"
         strokeLinecap="round"

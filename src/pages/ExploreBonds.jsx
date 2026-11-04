@@ -4,7 +4,7 @@ import AssetTable from '../components/AssetTable'
 import OrderModal from '../components/OrderModal'
 import { usePortfolio } from '../context/PortfolioContext'
 
-const filters = ['All', 'G-Sec', 'PSU']
+const filters = ['All', 'SGB']
 
 export default function ExploreBonds() {
   const { bonds } = usePortfolio()
@@ -27,8 +27,10 @@ export default function ExploreBonds() {
   return (
     <div className="mx-auto max-w-7xl space-y-5">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Explore Bonds</h1>
-        <p className="mt-1 text-sm text-muted">G-Secs and AAA PSU bonds with coupon and YTM.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-ink">Sovereign Gold Bonds</h1>
+        <p className="mt-1 text-sm text-muted">
+          Government-backed gold bonds with 2.5% p.a. coupon and capital appreciation.
+        </p>
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -37,8 +39,8 @@ export default function ExploreBonds() {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search 7.18% GS 2033, NHAI..."
-            className="w-full rounded-xl border border-border bg-surface py-2.5 pr-3 pl-9 text-sm outline-none focus:border-accent"
+            placeholder="Search SGB 2031, SGB 2029..."
+            className="w-full rounded-xl border border-border bg-surface py-2.5 pr-3 pl-9 text-sm text-ink outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
           />
         </div>
         <div className="flex flex-wrap gap-2">
@@ -46,8 +48,10 @@ export default function ExploreBonds() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-                filter === f ? 'bg-accent text-bg' : 'bg-surface text-muted hover:text-ink'
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                filter === f
+                  ? 'bg-amber-600 text-white'
+                  : 'bg-surface text-muted hover:text-ink'
               }`}
             >
               {f}

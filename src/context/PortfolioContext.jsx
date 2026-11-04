@@ -3,7 +3,9 @@ import {
   INITIAL_CASH,
   bonds,
   etfs,
+  mutualFunds,
   getAssetById,
+  getAssetType,
   initialHoldings,
   initialOrders,
 } from '../data/mockData'
@@ -54,7 +56,7 @@ export function PortfolioProvider({ children }) {
     }
 
     const value = quantity * asset.ltp
-    const type = etfs.some((e) => e.id === asset.id) ? 'ETF' : 'Bond'
+    const type = getAssetType(asset)
 
     if (side === 'BUY') {
       if (value > cash) {
@@ -118,6 +120,7 @@ export function PortfolioProvider({ children }) {
         totalPnl,
         etfs,
         bonds,
+        mutualFunds,
         placeOrder,
       }}
     >

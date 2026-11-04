@@ -24,7 +24,7 @@ export default function OrderModal({ asset, initialSide = 'BUY', onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-4 sm:items-center">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 p-4 sm:items-center">
       <button className="absolute inset-0" onClick={onClose} aria-label="Close overlay" />
       <form
         onSubmit={submit}
@@ -32,8 +32,10 @@ export default function OrderModal({ asset, initialSide = 'BUY', onClose }) {
       >
         <div className="mb-4 flex items-start justify-between">
           <div>
-            <p className="text-xs tracking-wide text-muted uppercase">{asset.category}</p>
-            <h3 className="text-lg font-semibold">{asset.symbol}</h3>
+            <p className="text-xs font-medium tracking-wide text-muted uppercase">
+              {asset.category}
+            </p>
+            <h3 className="text-lg font-bold text-ink">{asset.symbol}</h3>
             <p className="text-sm text-muted">{asset.name}</p>
           </div>
           <button
@@ -45,27 +47,27 @@ export default function OrderModal({ asset, initialSide = 'BUY', onClose }) {
           </button>
         </div>
 
-        <div className="mb-4 flex items-end justify-between rounded-xl bg-surface-2 px-4 py-3">
+        <div className="mb-4 flex items-end justify-between rounded-xl bg-amber-50 px-4 py-3">
           <div>
-            <p className="text-xs text-muted">LTP</p>
-            <p className="text-xl font-semibold">{formatINR(asset.ltp)}</p>
+            <p className="text-xs text-amber-700">Last Traded Price</p>
+            <p className="text-xl font-bold text-ink">{formatINR(asset.ltp)}</p>
           </div>
-          <p className={`text-sm font-medium ${pnlClass(asset.changePct)}`}>
+          <p className={`text-sm font-semibold ${pnlClass(asset.changePct)}`}>
             {formatPct(asset.changePct)}
           </p>
         </div>
 
-        <div className="mb-4 grid grid-cols-2 gap-2 rounded-xl bg-bg p-1">
+        <div className="mb-4 grid grid-cols-2 gap-2 rounded-xl bg-surface-2 p-1">
           {['BUY', 'SELL'].map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => setSide(s)}
-              className={`rounded-lg py-2 text-sm font-semibold ${
+              className={`rounded-lg py-2 text-sm font-semibold transition ${
                 side === s
                   ? s === 'BUY'
-                    ? 'bg-accent text-bg'
-                    : 'bg-loss text-white'
+                    ? 'bg-amber-600 text-white shadow-sm'
+                    : 'bg-loss text-white shadow-sm'
                   : 'text-muted hover:text-ink'
               }`}
             >
@@ -75,37 +77,39 @@ export default function OrderModal({ asset, initialSide = 'BUY', onClose }) {
         </div>
 
         <label className="mb-4 block text-sm">
-          <span className="mb-1.5 block text-muted">Quantity</span>
+          <span className="mb-1.5 block font-medium text-muted">Quantity</span>
           <input
             type="number"
             min="1"
             value={qty}
             onChange={(e) => setQty(e.target.value)}
-            className="w-full rounded-xl border border-border bg-bg px-3 py-2.5 outline-none focus:border-accent"
+            className="w-full rounded-xl border border-border bg-surface px-3 py-2.5 text-ink outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
           />
         </label>
 
         <div className="mb-4 space-y-1 text-sm text-muted">
           <div className="flex justify-between">
             <span>Order value</span>
-            <span className="text-ink">{formatINR(value)}</span>
+            <span className="font-medium text-ink">{formatINR(value)}</span>
           </div>
           <div className="flex justify-between">
             <span>Available cash</span>
-            <span className="text-ink">{formatINR(cash)}</span>
+            <span className="font-medium text-ink">{formatINR(cash)}</span>
           </div>
           <div className="flex justify-between">
             <span>Holdings</span>
-            <span className="text-ink">{holding?.qty ?? 0}</span>
+            <span className="font-medium text-ink">{holding?.qty ?? 0}</span>
           </div>
         </div>
 
-        {message && <p className="mb-3 text-sm text-accent">{message}</p>}
+        {message && <p className="mb-3 text-sm font-medium text-amber-700">{message}</p>}
 
         <button
           type="submit"
-          className={`w-full rounded-xl py-2.5 text-sm font-semibold ${
-            side === 'BUY' ? 'bg-accent text-bg' : 'bg-loss text-white'
+          className={`w-full rounded-xl py-2.5 text-sm font-bold transition ${
+            side === 'BUY'
+              ? 'bg-amber-600 text-white hover:bg-amber-700'
+              : 'bg-loss text-white hover:bg-red-700'
           }`}
         >
           {side === 'BUY' ? 'Place buy order' : 'Place sell order'}
