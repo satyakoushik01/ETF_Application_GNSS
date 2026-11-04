@@ -3,6 +3,7 @@ import { ArrowUpRight, Landmark, Coins, PieChart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Sparkline from '../components/Sparkline'
 import OrderModal from '../components/OrderModal'
+import { MarketTickerBar } from '../components/MarketTickerBar' // <--- Added Live Market Ticker import
 import { usePortfolio } from '../context/PortfolioContext'
 import { formatINR, formatPct, formatSignedINR, pnlClass } from '../lib/format'
 
@@ -34,6 +35,9 @@ export default function Dashboard() {
           A clean view of your gold and silver portfolio.
         </p>
       </div>
+
+      {/* Live Yahoo Finance Market Ticker Bar */}
+      <MarketTickerBar />
 
       <section className="grid gap-4 md:grid-cols-3">
         <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
